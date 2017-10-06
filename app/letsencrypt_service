@@ -46,6 +46,8 @@ update_certs() {
     # Load relevant container settings
     unset LETSENCRYPT_CONTAINERS
     source "$DIR"/letsencrypt_service_data
+    # Only enabled domains
+    source "$DIR"/letsencrypt_service_enabled_domain
 
     reload_nginx='false'
     for cid in "${LETSENCRYPT_CONTAINERS[@]}"; do
