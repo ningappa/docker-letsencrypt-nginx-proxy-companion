@@ -1,0 +1,1 @@
+rm -f /etc/nginx/certs/$domain.{crt,key,dhparam.pem}
