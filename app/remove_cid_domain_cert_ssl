@@ -1,0 +1,19 @@
+#!/bin/bash
+# get array LETSENCRYPT_CONTAINERS
+
+unset LETSENCRYPT_CONTAINERS
+source /app/letsencrypt_service_enabled_domain
+#echo $1
+# add containerid (cid) to LETSENCRYPT_CONTAINERS
+
+LETSENCRYPT_CONTAINERS+=($1)
+LETSENCRYPT_CONTAINERS=($(printf "%s\n" "${LETSENCRYPT_CONTAINERS[@]}" |  sort -u ))
+
+cat > /app/letsencrypt_service_enabled_domain  <<EOL
+LETSENCRYPT_CONTAINERS=(${LETSENCRYPT_CONTAINERS[@]})
+EOL
+
+source /app/letsencrypt_service --source-only
+
+update_certs 
+
